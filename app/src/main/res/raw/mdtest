@@ -1,0 +1,7 @@
+This is a test file for markdown rendering. It should be rendered as a markdown file.
+
+**This is bold text** as the headers are not yet supported.
+
+# Header 1, see nothing happens.
+
+Now to italics, *this is italic text*. Let's see if it works. Let's try a link [Google](https://www.google.com). Now we're sure that everything works.
