@@ -1,7 +1,10 @@
 package pl.mkikolski.mojacodziennatabletka.data
 
 import android.os.Bundle
+import android.util.Log
 import androidx.compose.runtime.saveable.Saver
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.tasks.await
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,7 +15,16 @@ data class UserRegistrationData(
     val reasons: List<String> = listOf(),
     val usesBuiltinAvatar: Boolean = true,
     val avatarUrl: String = "R.drawable.avatar_1"
-)
+) {
+    suspend fun createFirebaseUser(authProvider: FirebaseAuth) {
+        try {
+            authProvider.createUserWithEmailAndPassword(email, password).await()
+            Log.d("UserRegistrationData", "User created successfully")
+        } catch (e: Exception) {
+            Log.d("UserRegistrationData", "User creation failed: ${e.message}")
+        }
+    }
+}
 
 val UserRegistrationDataSaver: Saver<UserRegistrationData, Bundle> = Saver(
     save = {

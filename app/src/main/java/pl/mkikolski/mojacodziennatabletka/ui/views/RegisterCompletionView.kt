@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
 import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationDataSaver
@@ -32,14 +35,15 @@ import pl.mkikolski.mojacodziennatabletka.ui.components.TextNavButton
 import pl.mkikolski.mojacodziennatabletka.ui.models.TextIconContainer
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 
-//TODO: Refactor views to store state inside this view
+//TODO: Refactor the avatar selection view to use the new state management
 @Composable
-fun RegisterCompletionView(navController: NavController, registrationData: UserRegistrationData) {
+fun RegisterCompletionView(navController: NavController, registrationData: UserRegistrationData, authProvider: FirebaseAuth) {
     var step = rememberSaveable { mutableStateOf(0) }
     val allSteps = 5
 
     var registrationDataState = rememberSaveable(stateSaver = UserRegistrationDataSaver) { mutableStateOf(registrationData) }
     var selectedReasons = remember { mutableStateListOf<TextIconContainer>() }
+    val coroutineScope = rememberCoroutineScope()
 
     val setAge = { age: Int ->
         Log.d("RegisterCompletionView", registrationDataState.value.toString())
@@ -138,7 +142,13 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
                 }
 
                 4 -> {
-                    ProfileCompletedView()
+                    ProfileCompletedView({
+                        coroutineScope.launch {
+                            Log.d("STARTED", "STARTED")
+                            registrationDataState.value.createFirebaseUser(authProvider)
+                            Log.d("FINISHED", "FINISHED")
+                        }
+                    })
                 }
             }
         }
@@ -150,7 +160,7 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
 fun RegisterCompletionViewPreview() {
     PillAssistantTheme {
         Surface {
-            RegisterCompletionView(navController = rememberNavController(), registrationData = UserRegistrationData("blank", "blank"))
+            RegisterCompletionView(navController = rememberNavController(), registrationData = UserRegistrationData("blank", "blank"), authProvider = FirebaseAuth.getInstance())
         }
     }
 }

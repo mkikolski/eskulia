@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.google.firebase.auth.FirebaseAuth
 import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
 import pl.mkikolski.mojacodziennatabletka.ui.views.GreetingStepper
 import pl.mkikolski.mojacodziennatabletka.ui.views.GreetingView
@@ -17,7 +18,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.views.RegisterView
 
 //TODO: Add animations to navigation
 @Composable
-fun PreLoginNavigation() {
+fun PreLoginNavigation(authProvider: FirebaseAuth) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -39,7 +40,7 @@ fun PreLoginNavigation() {
 
         composable<UserRegistrationData> {backStackEntry ->
             val registrationData = backStackEntry.toRoute<UserRegistrationData>()
-            RegisterCompletionView(navController = navController, registrationData = registrationData)
+            RegisterCompletionView(navController = navController, registrationData = registrationData, authProvider = authProvider)
         }
 
         composable("premium_purchase_view") {
