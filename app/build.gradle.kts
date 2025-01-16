@@ -79,4 +79,13 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.3")
     implementation("com.airbnb.android:lottie-compose:4.0.0")
 
+    val cameraxVersion = "1.4.1"
+    implementation("androidx.camera:camera-core:${cameraxVersion}")
+    implementation("androidx.camera:camera-camera2:${cameraxVersion}")
+    implementation("androidx.camera:camera-lifecycle:${cameraxVersion}")
+    implementation("androidx.camera:camera-video:${cameraxVersion}")
+    implementation("androidx.camera:camera-view:${cameraxVersion}")
+    implementation("androidx.camera:camera-mlkit-vision:${cameraxVersion}")
+    implementation("androidx.camera:camera-extensions:${cameraxVersion}")
+
 }
