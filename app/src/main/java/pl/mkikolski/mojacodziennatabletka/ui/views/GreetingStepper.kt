@@ -21,6 +21,8 @@ import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.components.GreetingStepperPart
 import pl.mkikolski.mojacodziennatabletka.ui.components.ProgressBar
@@ -29,7 +31,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.components.TextNavButton
 import pl.mkikolski.mojacodziennatabletka.ui.models.GreetingStep
 
 @Composable
-fun GreetingStepper() {
+fun GreetingStepper(navController: NavController) {
     val allSteps = listOf(
         GreetingStep(
             title = "Keep track of your medications",
@@ -115,7 +117,7 @@ fun GreetingStepperPreview() {
     Surface (
         modifier = Modifier.fillMaxWidth().background(Color.White)
     ) {
-        GreetingStepper()
+        GreetingStepper(navController = rememberNavController())
     }
 
 }

@@ -79,4 +79,8 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.3")
     implementation("com.airbnb.android:lottie-compose:4.0.0")
 
+    val nav_version = "2.8.5"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
 }

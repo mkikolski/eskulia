@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.components.ProgressBar
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledIconButtonBackground
@@ -26,7 +28,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 
 //TODO: Refactor views to store state inside this view
 @Composable
-fun RegisterCompletionView() {
+fun RegisterCompletionView(navController: NavController) {
     var step = rememberSaveable { mutableStateOf(0) }
     val allSteps = 5
 
@@ -110,7 +112,7 @@ fun RegisterCompletionView() {
 fun RegisterCompletionViewPreview() {
     PillAssistantTheme {
         Surface {
-            RegisterCompletionView()
+            RegisterCompletionView(navController = rememberNavController())
         }
     }
 }

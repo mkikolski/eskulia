@@ -30,13 +30,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledButtonFullWidth
 import pl.mkikolski.mojacodziennatabletka.ui.components.Title
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
-fun GreetingView() {
+fun GreetingView(
+    navController: NavController
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -118,6 +122,6 @@ fun GreetingView() {
 @Composable
 fun GreetingViewPreview() {
     Surface {
-        GreetingView()
+        GreetingView(navController = rememberNavController())
     }
 }

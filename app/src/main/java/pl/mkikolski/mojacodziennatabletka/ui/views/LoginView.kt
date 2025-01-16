@@ -33,6 +33,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledButtonFullWidth
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledDivider
@@ -46,7 +48,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
 fun LoginView(
-
+    navController: NavController
 ) {
     var email = rememberSaveable { mutableStateOf("")}
     var password = rememberSaveable { mutableStateOf("") }
@@ -157,7 +159,7 @@ fun LoginView(
 fun LoginViewPreview() {
     PillAssistantTheme {
         Surface {
-            LoginView()
+            LoginView(navController = rememberNavController())
         }
     }
 }

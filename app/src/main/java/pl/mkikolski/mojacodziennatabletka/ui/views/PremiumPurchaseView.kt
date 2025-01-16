@@ -31,6 +31,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.components.BipolarSwitch
@@ -47,8 +49,12 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 //TODO: Redo switch to be MaterialTheme.shapes.medium instead of stock and have square thumper
+//TODO: Add "no thank you" button
+//TODO: Add followup screen with payment options and rules
 @Composable
-fun PremiumPurchaseView() {
+fun PremiumPurchaseView(
+    navController: NavController
+) {
     var selectedYearly = rememberSaveable { mutableStateOf(false) }
     var selectedOption = rememberSaveable { mutableStateOf("Pro") }
 
@@ -150,7 +156,7 @@ fun PremiumPurchaseView() {
 fun PremiumPurchaseViewPreview() {
     PillAssistantTheme {
         Surface(Modifier.background(BackgroundColor)) {
-            PremiumPurchaseView()
+            PremiumPurchaseView(navController = rememberNavController())
         }
     }
 }
