@@ -42,9 +42,10 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
 fun AgeFormView(
-    onContinue: () -> Unit = {}
+    age: Int,
+    onContinue: () -> Unit = {},
+    dataModifier : (Int) -> Unit = {}
 ) {
-    var age by remember { mutableStateOf(25) }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,7 +71,7 @@ fun AgeFormView(
 
             NumberPicker(
                 value = age,
-                onValueChange = { age = it.toInt() },
+                onValueChange = { dataModifier(it.toInt()) },
                 values = (1..100).map { it.toString() },
                 modifier = Modifier.padding(horizontal = 120.dp)
             )
@@ -93,6 +94,7 @@ fun AgeFormView(
 @Composable
 fun AgeFormViewPreview() {
     Surface (modifier = Modifier.background(BackgroundColor)) {
-        AgeFormView()
+        var age = 25
+        AgeFormView(age, {}, {age = it})
     }
 }

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -82,5 +83,6 @@ dependencies {
     val nav_version = "2.8.5"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 }

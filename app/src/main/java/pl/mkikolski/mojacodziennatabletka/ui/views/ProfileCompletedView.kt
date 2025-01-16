@@ -37,7 +37,6 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
 fun ProfileCompletedView(
-    navController: NavController,
     onContinue: () -> Unit = {}
 ) {
     Box(

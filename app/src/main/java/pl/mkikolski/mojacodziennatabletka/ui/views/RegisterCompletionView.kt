@@ -1,5 +1,6 @@
 package pl.mkikolski.mojacodziennatabletka.ui.views
 
+import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,16 +24,51 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.R
+import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
+import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationDataSaver
 import pl.mkikolski.mojacodziennatabletka.ui.components.ProgressBar
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledIconButtonBackground
 import pl.mkikolski.mojacodziennatabletka.ui.components.TextNavButton
+import pl.mkikolski.mojacodziennatabletka.ui.models.TextIconContainer
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 
 //TODO: Refactor views to store state inside this view
 @Composable
-fun RegisterCompletionView(navController: NavController) {
+fun RegisterCompletionView(navController: NavController, registrationData: UserRegistrationData) {
     var step = rememberSaveable { mutableStateOf(0) }
     val allSteps = 5
+
+    var registrationDataState = rememberSaveable(stateSaver = UserRegistrationDataSaver) { mutableStateOf(registrationData) }
+    var selectedReasons = remember { mutableStateListOf<TextIconContainer>() }
+
+    val setAge = { age: Int ->
+        Log.d("RegisterCompletionView", registrationDataState.value.toString())
+        registrationDataState.value = registrationDataState.value.copy(age = age)
+    }
+
+    val setReasons = { reason: TextIconContainer ->
+        Log.d("RegisterCompletionView", registrationDataState.value.toString())
+        Log.d("RegisterCompletionView", selectedReasons.toString())
+        if (selectedReasons.contains(reason)) {
+            selectedReasons.remove(reason)
+        } else {
+            selectedReasons.add(reason)
+        }
+        val reasons = selectedReasons.map { it.text }
+        registrationDataState.value = registrationDataState.value.copy(reasons = reasons)
+    }
+
+    val setUsesBuiltinAvatar = { usesBuiltinAvatar: Boolean ->
+        registrationDataState.value = registrationDataState.value.copy(usesBuiltinAvatar = usesBuiltinAvatar)
+    }
+
+    val setAvatarUrl = { avatarUrl: String ->
+        registrationDataState.value = registrationDataState.value.copy(avatarUrl = avatarUrl)
+    }
+
+    val createProfileInFirebase = {
+        Log.d("RegisterCompletionView", registrationDataState.value.toString())
+    }
 
     Column(
         modifier = Modifier
@@ -50,7 +88,7 @@ fun RegisterCompletionView(navController: NavController) {
                     if (step.value > 0) {
                         step.value -= 1
                     } else {
-                        // TODO: navigate to previous screen
+                        navController.navigate("register_view")
                     }
                 }
             )
@@ -76,18 +114,18 @@ fun RegisterCompletionView(navController: NavController) {
         AnimatedContent(targetState = step) { targetState ->
             when (targetState.value) {
                 0 -> {
-                    AgeFormView({
+                    AgeFormView(registrationDataState.value.age, {
                         step.value += 1
-                    })
+                    }, setAge)
                 }
 
                 1 -> {
-                    ReasonsFormView({
+                    ReasonsFormView(selectedReasons, {
                         step.value += 1
-                    })
+                    }, setReasons)
                 }
 
-                2 -> {
+                2 -> { //TODO: Add state edition to AvatarSelectFormView
                     AvatarSelectFormView({
                         step.value += 1
                     })
@@ -112,7 +150,7 @@ fun RegisterCompletionView(navController: NavController) {
 fun RegisterCompletionViewPreview() {
     PillAssistantTheme {
         Surface {
-            RegisterCompletionView(navController = rememberNavController())
+            RegisterCompletionView(navController = rememberNavController(), registrationData = UserRegistrationData("blank", "blank"))
         }
     }
 }

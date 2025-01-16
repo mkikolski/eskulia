@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
 import pl.mkikolski.mojacodziennatabletka.ui.views.GreetingStepper
 import pl.mkikolski.mojacodziennatabletka.ui.views.GreetingView
 import pl.mkikolski.mojacodziennatabletka.ui.views.LoginView
@@ -13,6 +15,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.views.ProfileCompletedView
 import pl.mkikolski.mojacodziennatabletka.ui.views.RegisterCompletionView
 import pl.mkikolski.mojacodziennatabletka.ui.views.RegisterView
 
+//TODO: Add animations to navigation
 @Composable
 fun PreLoginNavigation() {
     val navController = rememberNavController()
@@ -34,12 +37,9 @@ fun PreLoginNavigation() {
             RegisterView(navController = navController)
         }
 
-        composable("register_completion_view") {
-            RegisterCompletionView(navController = navController)
-        }
-
-        composable("profile_completed_view") {
-            ProfileCompletedView(navController = navController)
+        composable<UserRegistrationData> {backStackEntry ->
+            val registrationData = backStackEntry.toRoute<UserRegistrationData>()
+            RegisterCompletionView(navController = navController, registrationData = registrationData)
         }
 
         composable("premium_purchase_view") {

@@ -2,6 +2,7 @@ package pl.mkikolski.mojacodziennatabletka.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -147,7 +148,8 @@ fun LoginView(
                     fontFamily = jakartaFontFamily,
                     color = Color(0xFF0020EE),
                     textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.clickable { navController.navigate("register_view") }
                 )
             }
         }

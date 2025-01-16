@@ -37,7 +37,9 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
 fun ReasonsFormView(
-    onContinue: () -> Unit = {}
+    selectedReasons: List<TextIconContainer> = listOf(),
+    onContinue: () -> Unit = {},
+    dataModifier: (TextIconContainer) -> Unit = {}
 ) {
     val reasons = listOf(
         Reason("Keep track of my medications", R.drawable.baseline_edit_calendar_24),
@@ -48,7 +50,7 @@ fun ReasonsFormView(
         Reason("Other reason", R.drawable.baseline_edit_note_24)
     )
 
-    var selectedReasons by remember { mutableStateOf(listOf<TextIconContainer>()) }
+    Log.d("ReasonsFormView", selectedReasons.toString())
 
     Box(
         modifier = Modifier
@@ -77,11 +79,7 @@ fun ReasonsFormView(
                 items = reasons,
                 selectedItems = selectedReasons,
                 onItemClicked = { item ->
-                    selectedReasons = if (selectedReasons.contains(item)) {
-                        selectedReasons.filter { it != item }
-                    } else {
-                        selectedReasons + item
-                    }
+                    dataModifier(item)
                 }
             )
         }

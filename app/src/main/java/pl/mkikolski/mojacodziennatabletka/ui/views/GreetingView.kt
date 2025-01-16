@@ -2,6 +2,7 @@ package pl.mkikolski.mojacodziennatabletka.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -91,7 +92,7 @@ fun GreetingView(
                 .offset(y = (-100).dp)
                 .zIndex(9999f)
         ) {
-            StyledButtonFullWidth(text = "Get started", onClick = {}, leadingIcon = null, trailingIcon = R.drawable.baseline_arrow_forward_24, enabledColor = Color.Black, disabledColor = Color.Gray, modifier = Modifier
+            StyledButtonFullWidth(text = "Get started", onClick = {navController.navigate("welcome_stepper_view")}, leadingIcon = null, trailingIcon = R.drawable.baseline_arrow_forward_24, enabledColor = Color.Black, disabledColor = Color.Gray, modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 16.dp))
             Row(
@@ -109,7 +110,8 @@ fun GreetingView(
                     fontFamily = jakartaFontFamily,
                     color = Color(0xFF0020EE),
                     textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.clickable { navController.navigate("login_view") }
                 )
             }
         }

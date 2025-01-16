@@ -32,6 +32,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.R
+import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledButtonFullWidth
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledDivider
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledOutlinedIconButtonBackground
@@ -112,7 +113,7 @@ fun RegisterView(
             Spacer(modifier = Modifier.height(16.dp))
             StyledButtonFullWidth(
                 "Continue",
-                onClick = {},
+                onClick = {navController.navigate(UserRegistrationData(email.value, password.value))},
                 leadingIcon = null,
                 trailingIcon = R.drawable.baseline_arrow_forward_24
             )

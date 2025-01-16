@@ -65,7 +65,7 @@ fun GreetingStepper(navController: NavController) {
                     if (step.value > 0) {
                         step.value -= 1
                     } else {
-                        // TODO: navigate to previous screen
+                        navController.navigate("welcome_view")
                     }
                 }
             )
@@ -91,7 +91,7 @@ fun GreetingStepper(navController: NavController) {
 
             TextNavButton(
                 text = "Skip",
-                onClick = {},
+                onClick = {navController.navigate("login_view")},
                 disabled = step.value >= allSteps.size - 1
             )
         }
