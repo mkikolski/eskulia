@@ -24,7 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
@@ -145,7 +147,8 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
                     ProfileCompletedView {
                         coroutineScope.launch {
                             Log.d("STARTED", "STARTED")
-                            registrationDataState.value.createFirebaseUser(authProvider)
+                            val uid = registrationDataState.value.createFirebaseUser(authProvider)
+                            registrationDataState.value.createEmptyUserData(Firebase.firestore, uid!!)
                             Log.d("FINISHED", "FINISHED")
                         }
                     }

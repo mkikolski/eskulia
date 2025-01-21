@@ -75,6 +75,7 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("com.github.mukeshsolanki:MarkdownView-Android:2.0.0")
     implementation("androidx.graphics:graphics-shapes:1.0.0-rc01")

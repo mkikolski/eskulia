@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.compose.runtime.saveable.Saver
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import kotlinx.serialization.Serializable
 
@@ -16,12 +17,32 @@ data class UserRegistrationData(
     val usesBuiltinAvatar: Boolean = true,
     val avatarUrl: String = "R.drawable.avatar_1"
 ) {
-    suspend fun createFirebaseUser(authProvider: FirebaseAuth) {
+    suspend fun createFirebaseUser(authProvider: FirebaseAuth): String? {
         try {
             authProvider.createUserWithEmailAndPassword(email, password).await()
             Log.d("UserRegistrationData", "User created successfully")
+            return authProvider.currentUser?.uid
         } catch (e: Exception) {
             Log.d("UserRegistrationData", "User creation failed: ${e.message}")
+            return null
+        }
+    }
+
+    suspend fun createEmptyUserData(db: FirebaseFirestore, uid: String) {
+        try {
+            db.collection("users").document(uid).set(
+                User(
+                    uid = uid,
+                    email = email,
+                    age = age,
+                    medicationIds = listOf(),
+                    chatIds = listOf(),
+                    avatarUrl = avatarUrl,
+                    notificationIds = listOf()
+                )
+            ).await()
+        } catch (e: Exception) {
+            Log.d("UserRegistrationData", "User data creation failed: ${e.message}")
         }
     }
 }
