@@ -142,13 +142,13 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
                 }
 
                 4 -> {
-                    ProfileCompletedView({
+                    ProfileCompletedView {
                         coroutineScope.launch {
                             Log.d("STARTED", "STARTED")
                             registrationDataState.value.createFirebaseUser(authProvider)
                             Log.d("FINISHED", "FINISHED")
                         }
-                    })
+                    }
                 }
             }
         }

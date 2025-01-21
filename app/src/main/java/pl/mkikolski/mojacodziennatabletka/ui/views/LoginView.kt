@@ -1,5 +1,7 @@
 package pl.mkikolski.mojacodziennatabletka.ui.views
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +39,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import pl.mkikolski.mojacodziennatabletka.HomeActivity
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledButtonFullWidth
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledDivider
@@ -49,10 +56,12 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
 fun LoginView(
-    navController: NavController
+    navController: NavController,
 ) {
     var email = rememberSaveable { mutableStateOf("")}
     var password = rememberSaveable { mutableStateOf("") }
+    val auth = Firebase.auth
+    val ctx = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -103,7 +112,15 @@ fun LoginView(
             Spacer(modifier = Modifier.height(16.dp))
             StyledButtonFullWidth(
                 "Sign in",
-                onClick = {},
+                onClick = {
+                    auth.signInWithEmailAndPassword(email.value, password.value)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                ctx.startActivity(Intent(ctx, HomeActivity::class.java))
+                                (ctx as Activity).finish()
+                            }
+                        }
+                },
                 leadingIcon = null,
                 trailingIcon = R.drawable.baseline_arrow_forward_24
             )
