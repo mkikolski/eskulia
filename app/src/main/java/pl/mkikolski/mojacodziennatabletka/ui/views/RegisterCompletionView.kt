@@ -142,10 +142,12 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
                     }, setReasons)
                 }
 
-                3 -> { //TODO: Add state edition to AvatarSelectFormView
-                    AvatarSelectFormView({
+                3 -> {
+                    AvatarSelectFormView { uri ->
+                        setUsesBuiltinAvatar(uri.contains("content://"))
+                        setAvatarUrl(uri)
                         step.value += 1
-                    })
+                    }
                 }
 
                 4 -> {
@@ -159,6 +161,8 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
                         coroutineScope.launch {
                             Log.d("STARTED", "STARTED")
                             val uid = registrationDataState.value.createFirebaseUser(authProvider)
+                            // cant setup billing account for firebase storage
+//                            val ppUrl = registrationDataState.value.uploadProfilePictureToFirebaseStorage(uid!!)
                             registrationDataState.value.createEmptyUserData(Firebase.firestore, uid!!)
                             Log.d("FINISHED", "FINISHED")
                         }

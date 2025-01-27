@@ -3,8 +3,11 @@ package pl.mkikolski.mojacodziennatabletka.data
 import android.os.Bundle
 import android.util.Log
 import androidx.compose.runtime.saveable.Saver
+import androidx.core.net.toUri
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.storage
 import kotlinx.coroutines.tasks.await
 import kotlinx.serialization.Serializable
 
@@ -46,6 +49,16 @@ data class UserRegistrationData(
         } catch (e: Exception) {
             Log.d("UserRegistrationData", "User data creation failed: ${e.message}")
         }
+    }
+
+    suspend fun uploadProfilePictureToFirebaseStorage(uid: String): String {
+        val storage = Firebase.storage.reference
+        val fileName = "profile_pictures/$uid.jpg"
+        val imageRef = storage.child(fileName)
+
+        val task = imageRef.putFile(avatarUrl.toUri())
+        task.await()
+        return imageRef.downloadUrl.await().toString()
     }
 }
 

@@ -106,11 +106,11 @@ fun AvatarPicker(
             .fillMaxWidth()
             .height(130.dp)
             .background(brush = Brush.linearGradient(
-                0.0f to BackgroundColor,
+                0.0f to Color.White,
                 0.4f to Color.Transparent,
                 0.5f to Color.Transparent,
                 0.6f to Color.Transparent,
-                1.0f to BackgroundColor,
+                1.0f to Color.White,
                 start = Offset(0.0f, -60.0f),
                 end = Offset(1050.0f, -60.0f)
             ))

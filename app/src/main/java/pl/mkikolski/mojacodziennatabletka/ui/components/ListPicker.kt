@@ -91,11 +91,11 @@ fun ListPicker(
         Spacer(
             modifier = modifier
                 .background(brush = Brush.linearGradient(
-                    0.0f to BackgroundColor,
+                    0.0f to Color.White,
                     0.3f to Color.Transparent,
                     0.5f to Color.Transparent,
                     0.7f to Color.Transparent,
-                    1.0f to BackgroundColor,
+                    1.0f to Color.White,
                     start = Offset(0.0f, 0.0f),
                     end = Offset(0.0f, 800.0f)
                 ))
