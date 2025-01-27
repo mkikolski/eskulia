@@ -17,6 +17,10 @@ class FirestoreRepository {
     }
 
     suspend fun getMedications(medicationIds: List<String>): List<Medication> {
-        return db.collection("medications").whereIn("id", medicationIds).get().await().toObjects(Medication::class.java)
+        return try {
+            db.collection("medications").whereIn("id", medicationIds).get().await().toObjects(Medication::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 }

@@ -1,11 +1,11 @@
 package pl.mkikolski.mojacodziennatabletka.data
 
 data class User(
-    val uid: String,
-    val email: String,
-    val age: Int,
-    val medicationIds: List<String>,
-    val chatIds: List<String>,
-    val avatarUrl: String,
-    val notificationIds: List<String>
+    val uid: String = "",
+    val email: String = "",
+    val age: Int = 25,
+    val medicationIds: List<String> = emptyList(),
+    val chatIds: List<String> = emptyList(),
+    val avatarUrl: String = "",
+    val notificationIds: List<String> = emptyList()
 )
