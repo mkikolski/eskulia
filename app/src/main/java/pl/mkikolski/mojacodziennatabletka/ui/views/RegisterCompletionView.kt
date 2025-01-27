@@ -28,6 +28,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationData
 import pl.mkikolski.mojacodziennatabletka.data.UserRegistrationDataSaver
@@ -74,6 +75,10 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
 
     val createProfileInFirebase = {
         Log.d("RegisterCompletionView", registrationDataState.value.toString())
+    }
+
+    val setUserName = { username: String ->
+        registrationDataState.value = registrationDataState.value.copy(username = username)
     }
 
     Column(
@@ -125,25 +130,31 @@ fun RegisterCompletionView(navController: NavController, registrationData: UserR
                     }, setAge)
                 }
 
-                1 -> {
+                1 -> { //TODO: Add username validation against whole userbase
+                    SetUserNameView(registrationDataState.value.username, {
+                        step.value += 1
+                    }, setUserName)
+                }
+
+                2 -> {
                     ReasonsFormView(selectedReasons, {
                         step.value += 1
                     }, setReasons)
                 }
 
-                2 -> { //TODO: Add state edition to AvatarSelectFormView
+                3 -> { //TODO: Add state edition to AvatarSelectFormView
                     AvatarSelectFormView({
                         step.value += 1
                     })
                 }
 
-                3 -> {
+                4 -> {
                     PrivacyPolicyFormView({
                         step.value += 1
                     })
                 }
 
-                4 -> {
+                5 -> {
                     ProfileCompletedView {
                         coroutineScope.launch {
                             Log.d("STARTED", "STARTED")

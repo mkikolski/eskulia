@@ -57,7 +57,7 @@ fun MainView(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
             ) {
-                UserCard("John Doe")
+                UserCard(user!!.username)
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier
