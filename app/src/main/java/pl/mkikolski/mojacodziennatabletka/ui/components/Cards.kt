@@ -50,6 +50,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.BlueTintColorMatrix
 import pl.mkikolski.mojacodziennatabletka.ui.theme.DarkGrayInactive
 import pl.mkikolski.mojacodziennatabletka.ui.theme.LightGrayInactive
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
+import pl.mkikolski.mojacodziennatabletka.ui.theme.RandomChipColor
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
@@ -251,7 +252,14 @@ fun MedicationCard(
 }
 
 @Composable
-fun BlogPostCard() {
+fun BlogPostCard(
+    title: String,
+    author: String,
+    date: String,
+    content: String,
+    imageUrl: String,
+    tags: List<String>
+) {
     Card(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
@@ -278,7 +286,7 @@ fun BlogPostCard() {
                     .background(Color.White)
             ) {
                 AsyncImage(
-                    model = "https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                    model = imageUrl,
                     contentDescription = "Blog post image",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -295,7 +303,7 @@ fun BlogPostCard() {
                 Spacer(modifier = Modifier.height(8.dp))
                 Column {
                     Title(
-                        text = "Safe usage of statins",
+                        text = title,
                         fontSize = 24.sp,
                         textAlign = TextAlign.Start,
                         modifier = Modifier.padding(horizontal = 16.dp)
@@ -312,7 +320,7 @@ fun BlogPostCard() {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "Dr. John Doe",
+                            text = author,
                             fontSize = 16.sp,
                             color = DarkGrayInactive,
                             fontFamily = jakartaFontFamily
@@ -326,7 +334,7 @@ fun BlogPostCard() {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "11.12.2024",
+                            text = date,
                             fontSize = 16.sp,
                             color = DarkGrayInactive,
                             fontFamily = jakartaFontFamily
@@ -334,7 +342,7 @@ fun BlogPostCard() {
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Statins are a class of drugs often prescribed by doctors to help lower cholesterol levels in the blood. By lowering the levels, they help prevent heart attacks and stroke. Studies show that, in certain people, statins reduce the risk of heart attack, stroke, and even death from heart disease by about 25-35%. Statins are effective, but they are not for everyone. Some people appear to benefit more from statins than others. Your doctor can determine if you are at risk for heart disease and if statins are a good option for you.".substring(
+                        text = content.substring(
                             0..80
                         ) + "...",
                         fontSize = 16.sp,
@@ -387,38 +395,21 @@ fun BlogPostCard() {
                     .padding(8.dp)
                     .align(Alignment.TopStart)
             ) {
-                AssistChip(
-                    label = {
-                        Text(
-                            text = "Health",
-                            fontSize = 14.sp,
-                            fontFamily = jakartaFontFamily
-                        )
-                    },
-                    onClick = {},
-                    modifier = Modifier.padding(4.dp),
-                    shape = MaterialTheme.shapes.medium,
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = BlueActive,
-                        labelColor = Color.White
+                tags.forEach {
+                    AssistChip(
+                        label = {
+                            Text(
+                                text = it,
+                                fontSize = 14.sp,
+                                fontFamily = jakartaFontFamily
+                            )
+                        },
+                        onClick = {},
+                        modifier = Modifier.padding(4.dp),
+                        shape = MaterialTheme.shapes.medium,
+                        colors = RandomChipColor()
                     )
-                )
-                AssistChip(
-                    label = {
-                        Text(
-                            text = "Cholesterol",
-                            fontSize = 14.sp,
-                            fontFamily = jakartaFontFamily
-                        )
-                    },
-                    onClick = {},
-                    modifier = Modifier.padding(4.dp),
-                    shape = MaterialTheme.shapes.medium,
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = Color.White,
-                        labelColor = DarkGrayInactive
-                    )
-                )
+                }
             }
         }
     }
@@ -433,18 +424,18 @@ fun UserCard(
     }
 }
 
-@Preview
-@Composable
-fun BlogPostCardPreview() {
-    PillAssistantTheme {
-        Surface(
-            Modifier
-                .background(BackgroundColor)
-        ) {
-            BlogPostCard()
-        }
-    }
-}
+//@Preview
+//@Composable
+//fun BlogPostCardPreview() {
+//    PillAssistantTheme {
+//        Surface(
+//            Modifier
+//                .background(BackgroundColor)
+//        ) {
+//            BlogPostCard()
+//        }
+//    }
+//}
 
 @Preview
 @Composable

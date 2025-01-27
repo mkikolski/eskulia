@@ -16,10 +16,14 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
     private val _userMedicationsState = MutableStateFlow<List<Medication>>(emptyList())
     val userMedicationsState = _userMedicationsState.asStateFlow()
 
+    private val _blogPosts = MutableStateFlow<List<BlogPost>>(emptyList())
+    val blogPosts = _blogPosts.asStateFlow()
+
     fun getUser(uid: String) {
         viewModelScope.launch {
             _userState.value = repository.getUser(uid)
             _userMedicationsState.value = repository.getMedications(_userState.value?.medicationIds ?: emptyList())
+            _blogPosts.value = repository.getBlogPosts()
         }
     }
 

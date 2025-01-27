@@ -33,6 +33,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.components.Title
 import pl.mkikolski.mojacodziennatabletka.ui.components.UpcomingDose
 import pl.mkikolski.mojacodziennatabletka.ui.components.UserCard
 import pl.mkikolski.mojacodziennatabletka.ui.theme.BlueActive
+import pl.mkikolski.mojacodziennatabletka.ui.theme.DarkGrayInactive
 
 @Composable
 fun MainView(
@@ -41,6 +42,7 @@ fun MainView(
 ) {
     val user by viewModel.userState.collectAsState()
     val medications by viewModel.userMedicationsState.collectAsState()
+    val blogPosts by viewModel.blogPosts.collectAsState()
     val uid = Firebase.auth.uid ?: ""
 
     LaunchedEffect(Unit) {
@@ -76,11 +78,16 @@ fun MainView(
                         .padding(horizontal = 16.dp),
                     horizontalAlignment = Alignment.Start
                 ) {
-                    MedicationCard("Medicine 1", "active substance 1", "30 mg")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    MedicationCard("Medicine 1", "active substance 1", "30 mg")
-                    Spacer(modifier = Modifier.height(4.dp))
-                    MedicationCard("Medicine 1", "active substance 1", "30 mg")
+                    if (medications.isEmpty()) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text("No medications added yet", fontSize = 18.sp, textAlign = TextAlign.Center, color = DarkGrayInactive)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    } else {
+                        medications.forEach {
+                            MedicationCard(it.name, it.activeSubstance, it.dose)
+                            Spacer(modifier = Modifier.height(4.dp))
+                        }
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
@@ -122,7 +129,15 @@ fun MainView(
                     Spacer(modifier = Modifier.height(8.dp))
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                BlogPostCard()
+                if (blogPosts.isEmpty()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text("No blog posts available", fontSize = 18.sp, textAlign = TextAlign.Center, color = DarkGrayInactive)
+                    Spacer(modifier = Modifier.height(16.dp))
+                } else {
+                    blogPosts[0].let {
+                        BlogPostCard(it.title, it.author, it.date, it.content, it.imageUrl, it.tags)
+                    }
+                }
                 Spacer(modifier = Modifier.height(100.dp))
             }
         }
