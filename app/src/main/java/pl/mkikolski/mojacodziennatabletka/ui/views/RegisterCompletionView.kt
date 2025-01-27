@@ -38,7 +38,6 @@ import pl.mkikolski.mojacodziennatabletka.ui.components.TextNavButton
 import pl.mkikolski.mojacodziennatabletka.ui.models.TextIconContainer
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 
-//TODO: Refactor the avatar selection view to use the new state management
 @Composable
 fun RegisterCompletionView(navController: NavController, registrationData: UserRegistrationData, authProvider: FirebaseAuth) {
     var step = rememberSaveable { mutableStateOf(0) }
