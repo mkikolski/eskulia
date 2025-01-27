@@ -17,6 +17,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import pl.mkikolski.mojacodziennatabletka.data.UserViewModel
 import pl.mkikolski.mojacodziennatabletka.ui.components.BlogPostCard
 import pl.mkikolski.mojacodziennatabletka.ui.components.CustomNavBar
 import pl.mkikolski.mojacodziennatabletka.ui.components.MedicationCard
@@ -27,7 +29,10 @@ import pl.mkikolski.mojacodziennatabletka.ui.components.UserCard
 import pl.mkikolski.mojacodziennatabletka.ui.theme.BlueActive
 
 @Composable
-fun MainView() {
+fun MainView(
+    viewModel: UserViewModel,
+    navController: NavController
+) {
     CustomNavBar() {
         Column(
             modifier = Modifier
@@ -106,8 +111,8 @@ fun MainView() {
     }
 }
 
-@Preview
-@Composable
-fun MainViewPreview() {
-    MainView()
-}
+//@Preview
+//@Composable
+//fun MainViewPreview() {
+//    MainView()
+//}

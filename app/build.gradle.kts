@@ -88,5 +88,10 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
+//    implementation("com.google.dagger:hilt-android:2.51")
+//    kapt("com.google.dagger:hilt-compiler:2.51")
+//    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
 }
