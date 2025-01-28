@@ -1,5 +1,8 @@
 package pl.mkikolski.mojacodziennatabletka.ui.theme
 
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ChipColors
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -30,3 +33,22 @@ val BlueTintColorMatrix = floatArrayOf(
     .8f, .8f, 1f, 0f, 0f,  // B' = B
     0f, 0f, 0f, 1f, 0f   // A' = A
 )
+
+@Composable
+fun RandomChipColor() : ChipColors {
+    val options = listOf(
+        AssistChipDefaults.assistChipColors(
+            containerColor = Color.White,
+            labelColor = DarkGrayInactive
+        ),
+        AssistChipDefaults.assistChipColors(
+            containerColor = BlueActive,
+            labelColor = Color.White
+        ),
+        AssistChipDefaults.assistChipColors(
+            containerColor = Color.Black,
+            labelColor = Color.White
+        )
+    )
+    return options.random()
+}

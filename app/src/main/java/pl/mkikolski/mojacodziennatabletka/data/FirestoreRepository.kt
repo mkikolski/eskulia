@@ -23,4 +23,12 @@ class FirestoreRepository {
             emptyList()
         }
     }
+
+    suspend fun getBlogPosts(): List<BlogPost> {
+        return try {
+            db.collection("blog").get().await().toObjects(BlogPost::class.java).sortedBy { it.id }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 }
