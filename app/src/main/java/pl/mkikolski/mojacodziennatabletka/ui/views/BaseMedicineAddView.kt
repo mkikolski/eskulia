@@ -98,7 +98,7 @@ fun BaseMedicineAddView(
                     colorEnabled = Color(0xFFD3D3D3),
                     contentColor = Color.Black,
                     onClick = {
-                        navController.navigate("home")
+                        navController.navigate("medicines")
                     }
                 )
                 Title("Add medication", fontSize = 20.sp, textAlign = TextAlign.Center)
@@ -152,7 +152,7 @@ fun BaseMedicineAddView(
                 StyledTextField( //TODO: Change to number picker
                     label = "Remaining doses",
                     value = remainingDoses.toString(),
-                    onValueChange = {it -> remainingDoses = it.toInt()},
+                    onValueChange = {it -> remainingDoses = it.toIntOrNull() ?: 0},
                     validator = {it ->
                         true
 //                    (it.contains("[A-Z]".toRegex()) && it.length >= 8 && it.contains("[0-9]".toRegex()))
@@ -160,12 +160,13 @@ fun BaseMedicineAddView(
                     errorMessage = "",
                     icon = R.drawable.baseline_medication_24, //TODO: change icon
                     placeholder = "How many doses are left?",
-                    isPassword = false
+                    isPassword = false,
+                    isNumeric = true
                 )
                 StyledTextField(
                     label = "Total doses",
                     value = totalDoses.toString(),
-                    onValueChange = {it -> totalDoses = it.toInt()},
+                    onValueChange = {it -> totalDoses = it.toIntOrNull() ?: 0},
                     validator = {it ->
                         true
 //                    (it.contains("[A-Z]".toRegex()) && it.length >= 8 && it.contains("[0-9]".toRegex()))
@@ -173,7 +174,8 @@ fun BaseMedicineAddView(
                     errorMessage = "",
                     icon = R.drawable.baseline_medication_24, //TODO: change icon
                     placeholder = "How many doses are in total?",
-                    isPassword = false
+                    isPassword = false,
+                    isNumeric = true
                 )
                 StyledTextField(
                     label = "Expiry date",
