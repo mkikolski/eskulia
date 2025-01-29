@@ -24,14 +24,23 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import java.io.File
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 
 
 @Composable
@@ -69,7 +78,9 @@ fun CameraScreen() {
                 onClick = {
                     capturePhoto(context, imageCapture)
                 },
-                modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp)
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
             )
         }
     } else {
@@ -113,7 +124,21 @@ fun setupCamera(
 @Composable
 fun CaptureButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Button(onClick = onClick, modifier = modifier) {
-        Text(text = "Capture")
+        Box(
+            modifier = modifier
+                .size(64.dp)
+                .clip(CircleShape)
+                .background(Color.White)
+                .clickable(onClick = onClick),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .background(Color.LightGray.copy(alpha = 0.3f))
+            )
+        }
     }
 }
 
