@@ -58,8 +58,8 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 fun LoginView(
     navController: NavController,
 ) {
-    var email = rememberSaveable { mutableStateOf("")}
-    var password = rememberSaveable { mutableStateOf("") }
+    var email = rememberSaveable { mutableStateOf("test@test.pl")}
+    var password = rememberSaveable { mutableStateOf("12345678") }
     val auth = Firebase.auth
     val ctx = LocalContext.current
 

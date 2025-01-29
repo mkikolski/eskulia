@@ -60,13 +60,16 @@ fun StyledTextField(
     paddingBottom: Dp = 8.dp,
     paddingLeft: Dp = 16.dp,
     paddingRight: Dp = 16.dp,
-    isNumeric: Boolean = false
+    isNumeric: Boolean = false,
+    readOnly: Boolean = false
     ) {
     var isFocused = remember{ mutableStateOf(false) }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     OutlinedTextField(value = value,
         onValueChange = onValueChange,
+        readOnly = readOnly,
+        enabled = !readOnly,
         label = { Text(
             label,
             fontFamily = jakartaFontFamily,
@@ -94,6 +97,9 @@ fun StyledTextField(
             errorLabelColor = RedError,
             errorIndicatorColor = RedError,
             errorContainerColor = LightRedError,
+            disabledLabelColor = DarkGrayInactive,
+            disabledIndicatorColor = Color.Transparent,
+            disabledContainerColor = Color.White
         ),
         isError = !validator(value),
         keyboardOptions = KeyboardOptions(
