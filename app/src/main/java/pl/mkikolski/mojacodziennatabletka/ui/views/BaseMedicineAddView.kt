@@ -215,7 +215,7 @@ fun BaseMedicineAddView(
                         isPassword = false
                     )
 
-                    StyledTextField( //TODO: Change to number picker
+                    StyledTextField(
                         label = "Remaining doses",
                         value = remainingDoses.toString(),
                         onValueChange = { it -> remainingDoses = it.toIntOrNull() ?: 0 },
@@ -264,6 +264,8 @@ fun BaseMedicineAddView(
                                 }
                             }
                     )
+
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     StyledButtonFullWidth(
                         "Add medication",
