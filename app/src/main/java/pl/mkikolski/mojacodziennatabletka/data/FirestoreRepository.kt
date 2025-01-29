@@ -31,4 +31,20 @@ class FirestoreRepository {
             emptyList()
         }
     }
+
+    suspend fun getChatMessages(chatId: String): List<ChatMessage> {
+        return try {
+            db.collection("chats").document(chatId).collection("messages").get().await().toObjects(ChatMessage::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getUserChats(chatIds: List<String>): List<FullChat> {
+        return try {
+            db.collection("chats").whereIn("id", chatIds).get().await().toObjects(FullChat::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 }

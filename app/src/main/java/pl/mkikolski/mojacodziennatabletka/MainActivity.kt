@@ -39,21 +39,21 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        medicineApi = ScanApi(this)
-        medicineApi.getScanData("12345",
-            listener = { scanData ->
-                if (scanData != null) {
-                    // Handle successful deserialization
-                    Log.d("Scan Data", "Found drug: ${scanData.drug?.name}")
-                } else {
-                    // Handle deserialization failure
-                    Log.e("Scan Data Error", "Failed to deserialize")
-                }
-            },
-            errorListener = { error ->
-                Log.e("Scan Data Error", error.toString())
-            }
-        )
+//        medicineApi = ScanApi(this)
+//        medicineApi.getScanData("12345",
+//            listener = { scanData ->
+//                if (scanData != null) {
+//                    // Handle successful deserialization
+//                    Log.d("Scan Data", "Found drug: ${scanData.drug?.name}")
+//                } else {
+//                    // Handle deserialization failure
+//                    Log.e("Scan Data Error", "Failed to deserialize")
+//                }
+//            },
+//            errorListener = { error ->
+//                Log.e("Scan Data Error", error.toString())
+//            }
+//        )
     }
 }
 
