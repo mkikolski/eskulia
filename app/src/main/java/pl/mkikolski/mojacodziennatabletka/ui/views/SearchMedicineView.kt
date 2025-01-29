@@ -1,7 +1,6 @@
 package pl.mkikolski.mojacodziennatabletka.ui.views
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,16 +18,15 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.data.UserViewModel
@@ -38,14 +36,17 @@ import pl.mkikolski.mojacodziennatabletka.ui.components.StyledIconButtonBackgrou
 import pl.mkikolski.mojacodziennatabletka.ui.components.Title
 import pl.mkikolski.mojacodziennatabletka.ui.theme.AmbientShadowLight
 import pl.mkikolski.mojacodziennatabletka.ui.theme.BlueActive
-import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import pl.mkikolski.mojacodziennatabletka.ui.components.StyledTextField
 
 @Composable
-fun AllMedicinesView(
+fun SearchMedicineView(
     viewModel: UserViewModel,
     navController: NavHostController
 ) {
     val medications by viewModel.userMedicationsState.collectAsState()
+    var searchTerm by rememberSaveable { mutableStateOf("") }
 
     CustomNavBar(navController) {
         Column(
@@ -83,7 +84,19 @@ fun AllMedicinesView(
                         navController.navigate("home")
                     }
                 )
-                Title("Your Medicines", fontSize = 20.sp, textAlign = TextAlign.Center)
+                StyledTextField(
+                    label = "Search...",
+                    value = searchTerm,
+                    onValueChange = { it -> searchTerm = it },
+                    validator = { it ->
+                        true
+//                    (it.contains("[A-Z]".toRegex()) && it.length >= 8 && it.contains("[0-9]".toRegex()))
+                    },
+                    errorMessage = "",
+                    icon = Icons.Default.Search,
+                    placeholder = "Begin searching",
+                    isPassword = false
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
             Column (
@@ -92,7 +105,7 @@ fun AllMedicinesView(
                     .verticalScroll(rememberScrollState())
             ) {
                 if (medications.isEmpty()) {
-                    Title("You don't have any medications yet", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
+                    Title(if (searchTerm.length > 3) "No medications found" else "Enter at least 3 characters", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
                     Spacer(modifier = Modifier.height(8.dp))
                 } else {
                     medications.forEach {
@@ -100,49 +113,7 @@ fun AllMedicinesView(
                         Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    StyledIconButtonBackground(
-                        icon = R.drawable.baseline_add_24,
-                        size = 72.dp,
-                        colorEnabled = BlueActive,
-                        contentColor = Color.White,
-                        onClick = {
-                            navController.navigate("base_add")
-                        }
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    StyledIconButtonBackground(
-                        icon = Icons.Filled.CameraAlt,
-                        size = 72.dp,
-                        colorEnabled = BlueActive,
-                        contentColor = Color.White,
-                        onClick = {
-
-                        }
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    StyledIconButtonBackground(
-                        icon = Icons.Default.Search,
-                        size = 72.dp,
-                        colorEnabled = BlueActive,
-                        contentColor = Color.White,
-                        onClick = {
-                            navController.navigate("search_medicine")
-                        }
-                    )
-                }
             }
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun AllMedicinesViewPreview() {
-//    PillAssistantTheme {
-//        AllMedicinesView()
-//    }
-//}

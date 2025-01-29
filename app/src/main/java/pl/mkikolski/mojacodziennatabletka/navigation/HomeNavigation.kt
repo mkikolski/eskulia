@@ -13,6 +13,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.views.AllBlogPostsView
 import pl.mkikolski.mojacodziennatabletka.ui.views.AllMedicinesView
 import pl.mkikolski.mojacodziennatabletka.ui.views.BaseMedicineAddView
 import pl.mkikolski.mojacodziennatabletka.ui.views.MainView
+import pl.mkikolski.mojacodziennatabletka.ui.views.SearchMedicineView
 
 @Composable
 fun HomeNavigation() {
@@ -35,6 +36,10 @@ fun HomeNavigation() {
 
         composable("base_add") {
             BaseMedicineAddView(sharedViewModel, navController)
+        }
+
+        composable("search_medicine") {
+            SearchMedicineView(sharedViewModel, navController)
         }
     }
 }
