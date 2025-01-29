@@ -49,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import pl.mkikolski.mojacodziennatabletka.ui.theme.AmbientShadowLight
 import pl.mkikolski.mojacodziennatabletka.ui.theme.BackgroundColor
 import pl.mkikolski.mojacodziennatabletka.ui.theme.BlueActive
@@ -59,6 +61,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun CustomNavBar(
+    navController: NavHostController = rememberNavController(),
     screen: @Composable (PaddingValues) -> Unit = {}
 ) {
     Scaffold(
@@ -88,7 +91,7 @@ fun CustomNavBar(
                             )
                         },
                         selected = true,
-                        onClick = { Log.d("CustomNavBar", "Home clicked") },
+                        onClick = { navController.navigate("home") },
                         selectedContentColor = BlueActive,
                         unselectedContentColor = DarkGrayInactive
                     )
@@ -101,7 +104,7 @@ fun CustomNavBar(
                             )
                         },
                         selected = false,
-                        onClick = { Log.d("CustomNavBar", "Medication clicked") },
+                        onClick = { navController.navigate("medicines") },
                         selectedContentColor = BlueActive,
                         unselectedContentColor = DarkGrayInactive
                     )

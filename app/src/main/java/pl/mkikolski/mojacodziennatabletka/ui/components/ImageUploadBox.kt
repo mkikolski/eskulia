@@ -2,6 +2,7 @@ package pl.mkikolski.mojacodziennatabletka.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +29,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
 @Composable
 fun ImageUploadBox(
-    onImageSelected: (String) -> Unit,
+    onImageSelected: () -> Unit,
     onImageDeleted: () -> Unit,
     imageUrl: String,
     maxSize: Int = 5,
@@ -38,6 +39,7 @@ fun ImageUploadBox(
         modifier = Modifier
             .height(120.dp)
             .width(120.dp)
+            .clickable { onImageSelected() }
             .dashedBorder(
                 color = BlueActive,
                 shape = MaterialTheme.shapes.medium

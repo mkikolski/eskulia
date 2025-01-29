@@ -3,8 +3,11 @@ package pl.mkikolski.mojacodziennatabletka.data
 import android.os.Bundle
 import android.util.Log
 import androidx.compose.runtime.saveable.Saver
+import androidx.core.net.toUri
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.storage
 import kotlinx.coroutines.tasks.await
 import kotlinx.serialization.Serializable
 
@@ -12,6 +15,7 @@ import kotlinx.serialization.Serializable
 data class UserRegistrationData(
     val email: String,
     val password: String,
+    val username: String = "",
     val age: Int = 25,
     val reasons: List<String> = listOf(),
     val usesBuiltinAvatar: Boolean = true,
@@ -34,6 +38,7 @@ data class UserRegistrationData(
                 User(
                     uid = uid,
                     email = email,
+                    username = username,
                     age = age,
                     medicationIds = listOf(),
                     chatIds = listOf(),
@@ -45,6 +50,16 @@ data class UserRegistrationData(
             Log.d("UserRegistrationData", "User data creation failed: ${e.message}")
         }
     }
+
+    suspend fun uploadProfilePictureToFirebaseStorage(uid: String): String {
+        val storage = Firebase.storage.reference
+        val fileName = "profile_pictures/$uid.jpg"
+        val imageRef = storage.child(fileName)
+
+        val task = imageRef.putFile(avatarUrl.toUri())
+        task.await()
+        return imageRef.downloadUrl.await().toString()
+    }
 }
 
 val UserRegistrationDataSaver: Saver<UserRegistrationData, Bundle> = Saver(
@@ -52,6 +67,7 @@ val UserRegistrationDataSaver: Saver<UserRegistrationData, Bundle> = Saver(
         Bundle().apply {
             putString("email", it.email)
             putString("password", it.password)
+            putString("username", it.username)
             putInt("age", it.age)
             putStringArray("reasons", it.reasons.toTypedArray())
             putBoolean("usesBuiltinAvatar", it.usesBuiltinAvatar)
@@ -62,6 +78,7 @@ val UserRegistrationDataSaver: Saver<UserRegistrationData, Bundle> = Saver(
         UserRegistrationData(
             email = it.getString("email")!!,
             password = it.getString("password")!!,
+            username = it.getString("username")!!,
             age = it.getInt("age"),
             reasons = it.getStringArray("reasons")!!.toList(),
             usesBuiltinAvatar = it.getBoolean("usesBuiltinAvatar"),

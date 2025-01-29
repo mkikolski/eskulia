@@ -59,13 +59,17 @@ fun StyledTextField(
     paddingTop: Dp = 8.dp,
     paddingBottom: Dp = 8.dp,
     paddingLeft: Dp = 16.dp,
-    paddingRight: Dp = 16.dp
+    paddingRight: Dp = 16.dp,
+    isNumeric: Boolean = false,
+    readOnly: Boolean = false
     ) {
     var isFocused = remember{ mutableStateOf(false) }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     OutlinedTextField(value = value,
         onValueChange = onValueChange,
+        readOnly = readOnly,
+        enabled = !readOnly,
         label = { Text(
             label,
             fontFamily = jakartaFontFamily,
@@ -93,10 +97,13 @@ fun StyledTextField(
             errorLabelColor = RedError,
             errorIndicatorColor = RedError,
             errorContainerColor = LightRedError,
+            disabledLabelColor = DarkGrayInactive,
+            disabledIndicatorColor = Color.Transparent,
+            disabledContainerColor = Color.White
         ),
         isError = !validator(value),
         keyboardOptions = KeyboardOptions(
-            keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Text
+            keyboardType = if (isPassword) KeyboardType.Password else if (isNumeric) KeyboardType.Number else KeyboardType.Text
         ),
         visualTransformation = if (!passwordVisible && isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         trailingIcon = {
@@ -114,8 +121,109 @@ fun StyledTextField(
             }
         },
         modifier = modifier
-            .padding(start = paddingLeft, top = paddingTop, end = paddingRight, bottom = paddingBottom)
-            .shadow(30.dp, MaterialTheme.shapes.medium, spotColor = Color.Transparent, ambientColor = AmbientShadowLight)
+            .padding(
+                start = paddingLeft,
+                top = paddingTop,
+                end = paddingRight,
+                bottom = paddingBottom
+            )
+            .shadow(
+                30.dp,
+                MaterialTheme.shapes.medium,
+                spotColor = Color.Transparent,
+                ambientColor = AmbientShadowLight
+            )
+            .fillMaxWidth()
+            .onFocusChanged {
+                isFocused.value = it.hasFocus
+                Log.d("StyledTextField", "isFocused: ${isFocused.value}")
+            },
+        shape = MaterialTheme.shapes.medium
+    )
+}
+
+@Composable
+fun StyledTextField(
+    label: String,
+    value: String,
+    onValueChange: (String) -> Unit,
+    validator: (String) -> Boolean, // returns false if input is invalid
+    errorMessage: String, // error message to display below the field
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    placeholder: String = "",
+    isPassword: Boolean = false, // set to true if it's a field that should be masked,
+    paddingTop: Dp = 8.dp,
+    paddingBottom: Dp = 8.dp,
+    paddingLeft: Dp = 16.dp,
+    paddingRight: Dp = 16.dp,
+    isNumeric: Boolean = false
+) {
+    var isFocused = remember{ mutableStateOf(false) }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+
+    OutlinedTextField(value = value,
+        onValueChange = onValueChange,
+        label = { Text(
+            label,
+            fontFamily = jakartaFontFamily,
+            fontWeight = FontWeight.Bold,
+        ) },
+        placeholder = { Text(
+            placeholder,
+            fontFamily = jakartaFontFamily,
+            fontWeight = FontWeight.Normal,
+        ) },
+        singleLine = true,
+        textStyle = TextStyle(
+            fontFamily = jakartaFontFamily,
+            fontWeight = FontWeight.Normal,
+        ),
+        leadingIcon = { Icon(icon, null) },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            focusedIndicatorColor = BlueActive,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedLeadingIconColor = BlueActive,
+            focusedLabelColor = BlueActive,
+            unfocusedLabelColor = DarkGrayInactive,
+            errorLabelColor = RedError,
+            errorIndicatorColor = RedError,
+            errorContainerColor = LightRedError,
+        ),
+        isError = !validator(value),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = if (isPassword) KeyboardType.Password else if (isNumeric) KeyboardType.Number else KeyboardType.Text
+        ),
+        visualTransformation = if (!passwordVisible && isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+        trailingIcon = {
+            if (isPassword) {
+                val image = if (passwordVisible)
+                    Icons.Filled.Visibility
+                else Icons.Filled.VisibilityOff
+
+                // Please provide localized description for accessibility services
+                val description = if (passwordVisible) "Hide password" else "Show password"
+
+                IconButton(onClick = {passwordVisible = !passwordVisible}){
+                    Icon(imageVector  = image, description)
+                }
+            }
+        },
+        modifier = modifier
+            .padding(
+                start = paddingLeft,
+                top = paddingTop,
+                end = paddingRight,
+                bottom = paddingBottom
+            )
+            .shadow(
+                30.dp,
+                MaterialTheme.shapes.medium,
+                spotColor = Color.Transparent,
+                ambientColor = AmbientShadowLight
+            )
             .fillMaxWidth()
             .onFocusChanged {
                 isFocused.value = it.hasFocus

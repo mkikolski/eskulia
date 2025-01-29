@@ -78,6 +78,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("com.github.mukeshsolanki:MarkdownView-Android:2.0.0")
     implementation("androidx.graphics:graphics-shapes:1.0.0-rc01")
@@ -90,6 +91,11 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
+//    implementation("com.google.dagger:hilt-android:2.51")
+//    kapt("com.google.dagger:hilt-compiler:2.51")
+//    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     implementation(libs.volley)
     implementation("com.google.code.gson:gson:2.10.1")
