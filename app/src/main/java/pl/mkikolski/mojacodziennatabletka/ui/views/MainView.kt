@@ -1,6 +1,7 @@
 package pl.mkikolski.mojacodziennatabletka.ui.views
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import pl.mkikolski.mojacodziennatabletka.data.UserViewModel
@@ -38,7 +40,7 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.DarkGrayInactive
 @Composable
 fun MainView(
     viewModel: UserViewModel,
-    navController: NavController
+    navController: NavHostController
 ) {
     val user by viewModel.userState.collectAsState()
     val medications by viewModel.userMedicationsState.collectAsState()
@@ -52,7 +54,7 @@ fun MainView(
     if (user == null) {
         Text("Loading...") //TODO: Add loading screen/animation
     } else {
-        CustomNavBar() {
+        CustomNavBar(navController) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -125,7 +127,7 @@ fun MainView(
                 ) {
                     Title("Educational resources", fontSize = 20.sp, textAlign = TextAlign.Start)
                     Spacer(modifier = Modifier.weight(1f))
-                    Text("See all", fontSize = 18.sp, textAlign = TextAlign.End, color = BlueActive, textDecoration = TextDecoration.Underline)
+                    Text("See all", fontSize = 18.sp, textAlign = TextAlign.End, color = BlueActive, textDecoration = TextDecoration.Underline, modifier = Modifier.clickable { navController.navigate("blog") })
                     Spacer(modifier = Modifier.height(8.dp))
                 }
                 Spacer(modifier = Modifier.height(16.dp))

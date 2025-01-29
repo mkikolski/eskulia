@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.data.UserViewModel
+import pl.mkikolski.mojacodziennatabletka.ui.components.BlogPostCard
 import pl.mkikolski.mojacodziennatabletka.ui.components.CustomNavBar
 import pl.mkikolski.mojacodziennatabletka.ui.components.MedicationCard
 import pl.mkikolski.mojacodziennatabletka.ui.components.StyledIconButtonBackground
@@ -40,11 +41,11 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.BlueActive
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 
 @Composable
-fun AllMedicinesView(
+fun AllBlogPostsView(
     viewModel: UserViewModel,
     navController: NavHostController
 ) {
-    val medications by viewModel.userMedicationsState.collectAsState()
+    val blogPosts by viewModel.blogPosts.collectAsState()
 
     CustomNavBar(navController) {
         Column(
@@ -82,7 +83,7 @@ fun AllMedicinesView(
                         navController.navigate("home")
                     }
                 )
-                Title("Your Medicines", fontSize = 20.sp, textAlign = TextAlign.Center)
+                Title("Blog", fontSize = 20.sp, textAlign = TextAlign.Center)
             }
             Spacer(modifier = Modifier.height(16.dp))
             Column (
@@ -90,47 +91,15 @@ fun AllMedicinesView(
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
-                if (medications.isEmpty()) {
-                    Title("You don't have any medications yet", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        StyledIconButtonBackground(
-                            icon = R.drawable.baseline_add_24,
-                            size = 72.dp,
-                            colorEnabled = BlueActive,
-                            contentColor = Color.White,
-                            onClick = {
-
-                            }
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        StyledIconButtonBackground(
-                            icon = Icons.Filled.CameraAlt,
-                            size = 72.dp,
-                            colorEnabled = BlueActive,
-                            contentColor = Color.White,
-                            onClick = {
-
-                            }
-                        )
-                    }
+                if (blogPosts.isEmpty()) {
+                    Title("No posts available", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
                 } else {
-                    medications.forEach {
-                        MedicationCard(it.name, it.activeSubstance, it.dose)
+                    blogPosts.forEach {
+                        BlogPostCard(it.title, it.author, it.date, it.content, it.imageUrl, it.tags)
+                        Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
             }
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun AllMedicinesViewPreview() {
-//    PillAssistantTheme {
-//        AllMedicinesView()
-//    }
-//}
