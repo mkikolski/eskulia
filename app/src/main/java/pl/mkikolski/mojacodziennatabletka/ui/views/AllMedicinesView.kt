@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -93,34 +94,45 @@ fun AllMedicinesView(
                 if (medications.isEmpty()) {
                     Title("You don't have any medications yet", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
                     Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        StyledIconButtonBackground(
-                            icon = R.drawable.baseline_add_24,
-                            size = 72.dp,
-                            colorEnabled = BlueActive,
-                            contentColor = Color.White,
-                            onClick = {
-
-                            }
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        StyledIconButtonBackground(
-                            icon = Icons.Filled.CameraAlt,
-                            size = 72.dp,
-                            colorEnabled = BlueActive,
-                            contentColor = Color.White,
-                            onClick = {
-
-                            }
-                        )
-                    }
                 } else {
                     medications.forEach {
                         MedicationCard(it.name, it.activeSubstance, it.dose)
+                        Spacer(modifier = Modifier.height(4.dp))
                     }
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    StyledIconButtonBackground(
+                        icon = R.drawable.baseline_add_24,
+                        size = 72.dp,
+                        colorEnabled = BlueActive,
+                        contentColor = Color.White,
+                        onClick = {
+                            navController.navigate("base_add")
+                        }
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    StyledIconButtonBackground(
+                        icon = Icons.Filled.CameraAlt,
+                        size = 72.dp,
+                        colorEnabled = BlueActive,
+                        contentColor = Color.White,
+                        onClick = {
+
+                        }
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    StyledIconButtonBackground(
+                        icon = Icons.Default.Search,
+                        size = 72.dp,
+                        colorEnabled = BlueActive,
+                        contentColor = Color.White,
+                        onClick = {
+
+                        }
+                    )
                 }
             }
         }
