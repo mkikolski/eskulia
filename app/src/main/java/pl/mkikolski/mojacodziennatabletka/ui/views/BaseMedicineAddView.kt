@@ -47,6 +47,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+//TODO: Add validation
+//TODO: Add option to pass arguments from other "add medicine" screens via navigation
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BaseMedicineAddView(
@@ -177,7 +179,7 @@ fun BaseMedicineAddView(
                     isPassword = false,
                     isNumeric = true
                 )
-                StyledTextField(
+                StyledTextField( //TODO: Add working date picker
                     label = "Expiry date",
                     value = expiryDate,
                     onValueChange = {it -> expiryDate = it},
