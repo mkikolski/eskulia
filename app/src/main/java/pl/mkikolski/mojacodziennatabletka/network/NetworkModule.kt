@@ -9,8 +9,8 @@ import com.android.volley.toolbox.Volley
 class NetworkModule(context: Context) {
     private var requestQueue: RequestQueue = Volley.newRequestQueue(context)
 
-    private val apiBaseUrl = "http://10.0.2.2:8000/" //instead of localhost in emulator
-
+//    private val apiBaseUrl = "http://10.0.2.2:8000/" //instead of localhost in emulator
+    private val apiBaseUrl = "http://192.168.1.105:8000/"
 
     fun getRequest(endpoint: String, listener: (String) -> Unit, errorListener: (Throwable) -> Unit) {
         val url = apiBaseUrl + endpoint
