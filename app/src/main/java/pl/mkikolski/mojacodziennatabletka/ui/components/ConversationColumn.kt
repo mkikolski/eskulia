@@ -80,7 +80,7 @@ fun ConversationColumn(
                 messages.forEach { message ->
                     ChatMessage(
                         content = message.content,
-                        isBot = !message.fromMe
+                        isBot = message.fromMe
                     )
                 }
             }

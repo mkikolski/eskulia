@@ -1,6 +1,8 @@
 package pl.mkikolski.mojacodziennatabletka.data
 
 import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
@@ -32,9 +34,19 @@ class FirestoreRepository {
         }
     }
 
-    suspend fun getChatMessages(chatId: String): List<ChatMessage> {
+    suspend fun createChat(): String {
+        val message: ChatMessage = ChatMessage(true, "Hello, how can I help you?", Timestamp.now())
+        val docRef = db.collection("messages").add(message).await()
+        db.collection("messages").document(docRef.id).update("id", docRef.id).await()
+        val chat = FullChat("", message.message, message.timestamp, listOf(docRef.id))
+        val chatRef = db.collection("chats").add(chat).await()
+        db.collection("chats").document(chatRef.id).update("id", chatRef.id).await()
+        return chatRef.id
+    }
+
+    suspend fun getChatMessages(messageIds: List<String>): List<ChatMessage> {
         return try {
-            db.collection("chats").document(chatId).collection("messages").get().await().toObjects(ChatMessage::class.java)
+            db.collection("messages").whereIn("id", messageIds).get().await().toObjects(ChatMessage::class.java)
         } catch (e: Exception) {
             emptyList()
         }

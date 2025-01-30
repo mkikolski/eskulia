@@ -131,7 +131,7 @@ fun CustomNavBar(
                             )
                         },
                         selected = false,
-                        onClick = { Log.d("CustomNavBar", "Chat clicked") },
+                        onClick = { navController.navigate("chat") },
                         selectedContentColor = BlueActive,
                         unselectedContentColor = DarkGrayInactive
                     )

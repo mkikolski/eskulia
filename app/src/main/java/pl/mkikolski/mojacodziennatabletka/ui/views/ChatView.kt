@@ -1,5 +1,6 @@
 package pl.mkikolski.mojacodziennatabletka.ui.views
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,8 +17,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.launch
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.data.UserViewModel
 import pl.mkikolski.mojacodziennatabletka.ui.components.ChatMiniatureTile
@@ -45,7 +49,14 @@ fun ChatView(
     viewModel: UserViewModel,
     navController: NavHostController
 ) {
-    val chats by viewModel.userMedicationsState.collectAsState()
+    val chats by viewModel.chats.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(chats) {
+//        val chatId = chats.last().id
+//        navController.navigate("chat_detail/$chatId")
+        Log.d("ChatView", "Launched effect")
+    }
 
     CustomNavBar(navController) {
         Column(
@@ -80,10 +91,10 @@ fun ChatView(
                     colorEnabled = Color(0xFFD3D3D3),
                     contentColor = Color.Black,
                     onClick = {
-                        navController.navigate("home")
+                        navController.navigate("chat")
                     }
                 )
-                Title("Your Medicines", fontSize = 20.sp, textAlign = TextAlign.Center)
+                Title("Chats", fontSize = 20.sp, textAlign = TextAlign.Center)
             }
             Spacer(modifier = Modifier.height(16.dp))
             Column (
@@ -91,12 +102,19 @@ fun ChatView(
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
-                if (medications.isEmpty()) {
-                    Title("You don't have any medications yet", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
+                if (chats.isEmpty()) {
+                    Title("No active conversations", fontSize = 16.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth())
                     Spacer(modifier = Modifier.height(8.dp))
                 } else {
-                    medications.forEach {
-                        MedicationCard(it.name, it.activeSubstance, it.dose)
+                    chats.forEach {
+                        ChatMiniatureTile(
+                            topic = "Bot conversation",
+                            lastMessage = it.lastMessage.substring(0..minOf(30, it.lastMessage.length - 1)) + "...",
+                            lastMessageDate = "Today",
+                            onClick = {
+                                navController.navigate("chat_detail/${it.id}")
+                            }
+                        )
                         Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
@@ -110,7 +128,11 @@ fun ChatView(
                         colorEnabled = BlueActive,
                         contentColor = Color.White,
                         onClick = {
-                            navController.navigate("base_add")
+                            coroutineScope.launch {
+                                viewModel.addChat(navController)
+                                Log.d("ChatView", "Chat added")
+                                Log.d("ChatView", chats.toString())
+                            }
                         }
                     )
                 }

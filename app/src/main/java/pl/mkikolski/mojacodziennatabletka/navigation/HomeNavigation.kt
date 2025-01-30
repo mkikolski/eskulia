@@ -12,6 +12,8 @@ import pl.mkikolski.mojacodziennatabletka.data.ViewModelFactory
 import pl.mkikolski.mojacodziennatabletka.ui.views.AllBlogPostsView
 import pl.mkikolski.mojacodziennatabletka.ui.views.AllMedicinesView
 import pl.mkikolski.mojacodziennatabletka.ui.views.BaseMedicineAddView
+import pl.mkikolski.mojacodziennatabletka.ui.views.ChatDetailView
+import pl.mkikolski.mojacodziennatabletka.ui.views.ChatView
 import pl.mkikolski.mojacodziennatabletka.ui.views.MainView
 import pl.mkikolski.mojacodziennatabletka.ui.views.SearchMedicineView
 
@@ -40,6 +42,14 @@ fun HomeNavigation() {
 
         composable("search_medicine") {
             SearchMedicineView(sharedViewModel, navController)
+        }
+
+        composable("chat") {
+            ChatView(sharedViewModel, navController)
+        }
+
+        composable("chat_detail/{chatId}") { backStackEntry ->
+            ChatDetailView(sharedViewModel, navController, backStackEntry.arguments?.getString("chatId") ?: "")
         }
     }
 }

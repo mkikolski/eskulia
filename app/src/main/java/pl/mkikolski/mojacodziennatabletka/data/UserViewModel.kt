@@ -2,6 +2,9 @@ package pl.mkikolski.mojacodziennatabletka.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -22,12 +25,31 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
     private val _chats = MutableStateFlow<List<FullChat>>(emptyList())
     val chats = _chats.asStateFlow()
 
+    private val _chatMessages = MutableStateFlow<List<ChatMessage>>(emptyList())
+    val chatMessages = _chatMessages.asStateFlow()
+
     fun getUser(uid: String) {
         viewModelScope.launch {
             _userState.value = repository.getUser(uid)
             _userMedicationsState.value = repository.getMedications(_userState.value?.medicationIds ?: emptyList())
             _blogPosts.value = repository.getBlogPosts()
             _chats.value = repository.getUserChats(_userState.value?.chatIds ?: emptyList())
+        }
+    }
+
+    fun addChat(navController: NavHostController) {
+        viewModelScope.launch {
+            val chatId = repository.createChat()
+            val updatedUser = _userState.value?.copy(chatIds = _userState.value?.chatIds?.plus(chatId) ?: listOf(chatId))
+            repository.updateUser(updatedUser!!)
+            _chats.value = repository.getUserChats(updatedUser.chatIds)
+            navController.navigate("chat_detail/$chatId")
+        }
+    }
+
+    fun getMessages(msgIds: List<String>) {
+        viewModelScope.launch {
+            _chatMessages.value = repository.getChatMessages(msgIds)
         }
     }
 

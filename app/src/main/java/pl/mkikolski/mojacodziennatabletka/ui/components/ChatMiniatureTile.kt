@@ -1,5 +1,6 @@
 package pl.mkikolski.mojacodziennatabletka.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,13 +27,15 @@ import java.util.Date
 fun ChatMiniatureTile(
     topic: String,
     lastMessage: String,
-    lastMessageDate: String
+    lastMessageDate: String,
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
             .clip(MaterialTheme.shapes.medium)
+            .clickable { onClick() }
             .shadow(
                 30.dp,
                 MaterialTheme.shapes.medium,
