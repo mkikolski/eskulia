@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -46,7 +47,8 @@ fun ConversationColumn(
     messages: List<Message>,
     onMessageSent: (String) -> Unit,
     topic: String,
-    isBotWriting: Boolean
+    isBotWriting: Boolean,
+    navController: NavHostController
 ) {
     val preloaderLottieComposition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(
@@ -72,7 +74,7 @@ fun ConversationColumn(
         Column(
             modifier = Modifier.fillMaxWidth().align(Alignment.TopStart)
         ) {
-            ChatHeader(title = topic)
+            ChatHeader(title = topic, onClick = { navController.navigate("chat") })
             Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 8.dp)
@@ -145,24 +147,24 @@ fun ConversationColumn(
     }
 }
 
-@Preview
-@Composable
-fun ConversationColumnPreview() {
-    ConversationColumn(
-        messages = listOf(
-            Message("Hello", true),
-            Message("Hi!", false),
-            Message("How are you?", true),
-            Message("I'm fine, thank you!", false),
-            Message("What's up?", true),
-            Message("Nothing much, just chilling", false),
-            Message("Cool!", true),
-            Message("Yeah", false),
-            Message("Bye!", true),
-            Message("Bye!", false),
-        ),
-        onMessageSent = {},
-        topic = "Chat",
-        isBotWriting = true
-    )
-}
+//@Preview
+//@Composable
+//fun ConversationColumnPreview() {
+//    ConversationColumn(
+//        messages = listOf(
+//            Message("Hello", true),
+//            Message("Hi!", false),
+//            Message("How are you?", true),
+//            Message("I'm fine, thank you!", false),
+//            Message("What's up?", true),
+//            Message("Nothing much, just chilling", false),
+//            Message("Cool!", true),
+//            Message("Yeah", false),
+//            Message("Bye!", true),
+//            Message("Bye!", false),
+//        ),
+//        onMessageSent = {},
+//        topic = "Chat",
+//        isBotWriting = true
+//    )
+//}

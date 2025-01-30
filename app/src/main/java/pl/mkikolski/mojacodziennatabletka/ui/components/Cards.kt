@@ -126,7 +126,7 @@ fun HeaderUserCard(
 }
 
 @Composable
-fun ChatHeader(title: String, modifier: Modifier = Modifier) {
+fun ChatHeader(title: String, modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     TopCutCard(cornerRadius = 36.dp, modifier = modifier) {
         Box(
             modifier = Modifier
@@ -140,7 +140,7 @@ fun ChatHeader(title: String, modifier: Modifier = Modifier) {
             ) {
                 StyledIconButtonBackground(
                     icon = R.drawable.baseline_arrow_back_24,
-                    onClick = {},
+                    onClick = {onClick()},
                     size = 56.dp,
                     colorEnabled = LightGrayInactive,
                     contentColor = Color.Black
