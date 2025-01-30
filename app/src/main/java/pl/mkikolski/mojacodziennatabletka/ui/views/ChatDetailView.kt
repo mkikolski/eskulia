@@ -32,6 +32,7 @@ fun ChatDetailView(
         messages = messages.map{ message -> Message(message.message, message.sentByBot) },
         onMessageSent = { message -> {} },
         topic = "Chat",
-        isBotWriting = isBotWriting
+        isBotWriting = isBotWriting,
+        navController = navController
     )
 }

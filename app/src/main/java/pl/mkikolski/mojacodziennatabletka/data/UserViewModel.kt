@@ -37,6 +37,16 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
         }
     }
 
+    fun addMedication(medication: Medication, navController: NavHostController) {
+        viewModelScope.launch {
+            val medId = repository.addMedication(medication)
+            val updatedUser = _userState.value?.copy(medicationIds = _userState.value?.medicationIds?.plus(medId) ?: listOf(medId))
+            repository.updateUser(updatedUser!!)
+            _userMedicationsState.value = repository.getMedications(_userState.value?.medicationIds ?: emptyList())
+            navController.navigate("home")
+        }
+    }
+
     fun addChat(navController: NavHostController) {
         viewModelScope.launch {
             val chatId = repository.createChat()

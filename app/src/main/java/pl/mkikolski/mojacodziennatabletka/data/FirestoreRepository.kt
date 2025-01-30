@@ -26,6 +26,12 @@ class FirestoreRepository {
         }
     }
 
+    suspend fun addMedication(medication: Medication): String {
+        val docRef = db.collection("medications").add(medication).await()
+        db.collection("medications").document(docRef.id).update("id", docRef.id).await()
+        return docRef.id
+    }
+
     suspend fun getBlogPosts(): List<BlogPost> {
         return try {
             db.collection("blog").get().await().toObjects(BlogPost::class.java).sortedBy { it.id }

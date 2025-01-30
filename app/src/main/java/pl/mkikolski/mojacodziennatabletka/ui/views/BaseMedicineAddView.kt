@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import pl.mkikolski.mojacodziennatabletka.R
+import pl.mkikolski.mojacodziennatabletka.data.Medication
 import pl.mkikolski.mojacodziennatabletka.data.UserViewModel
 import pl.mkikolski.mojacodziennatabletka.ui.components.CustomNavBar
 import pl.mkikolski.mojacodziennatabletka.ui.components.MarkdownScrollableColumn
@@ -270,15 +271,18 @@ fun BaseMedicineAddView(
                     StyledButtonFullWidth(
                         "Add medication",
                         onClick = {
-//                        viewModel.addMedication(
-//                            medicationName,
-//                            activeSubstance,
-//                            medicationDose,
-//                            remainingDoses,
-//                            totalDoses,
-//                            expiryDate
-//                        )
-                            navController.navigate("home")
+                            viewModel.addMedication(
+                                Medication(
+                                    name = medicationName,
+                                    activeSubstance = activeSubstance,
+                                    dose = medicationDose,
+                                    remainingDoses = remainingDoses,
+                                    totalDoses = totalDoses,
+                                    expiryDate = expiryDate
+                                ),
+                                navController
+                            )
+//                            navController.navigate("home")
                         },
                         leadingIcon = null,
                         trailingIcon = R.drawable.baseline_arrow_forward_24
