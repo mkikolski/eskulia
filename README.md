@@ -9,5 +9,7 @@ Just clone the repository and build using Gradle. During development, the projec
 [Browse the docs](https://mkikolski.github.io/eskulia/)
 
 ## Tech stack
-tba
+- Kotlin 1.9.20
+- Jetpack Compose 2023.08.00
+- Firebase Auth, Firestore, Cloud Messaging, Storage
 
