@@ -12,4 +12,5 @@ Just clone the repository and build using Gradle. During development, the projec
 - Kotlin 1.9.20
 - Jetpack Compose 2023.08.00
 - Firebase Auth, Firestore, Cloud Messaging, Storage
+- Dokka
 
