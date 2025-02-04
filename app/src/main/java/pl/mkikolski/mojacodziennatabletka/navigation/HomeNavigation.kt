@@ -17,6 +17,9 @@ import pl.mkikolski.mojacodziennatabletka.ui.views.ChatView
 import pl.mkikolski.mojacodziennatabletka.ui.views.MainView
 import pl.mkikolski.mojacodziennatabletka.ui.views.SearchMedicineView
 
+/**
+ * Composable function that sets up the navigation graph for the home screen.
+ */
 @Composable
 fun HomeNavigation() {
     val navController = rememberNavController()

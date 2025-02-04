@@ -17,6 +17,11 @@ import pl.mkikolski.mojacodziennatabletka.ui.views.RegisterCompletionView
 import pl.mkikolski.mojacodziennatabletka.ui.views.RegisterView
 
 //TODO: Add animations to navigation
+/**
+ * Composable function that sets up the navigation graph for the pre-login screens.
+ *
+ * @param authProvider The Firebase authentication provider.
+ */
 @Composable
 fun PreLoginNavigation(authProvider: FirebaseAuth) {
     val navController = rememberNavController()
