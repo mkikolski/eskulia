@@ -4,6 +4,11 @@ plugins {
     id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.plugin.serialization")
 //    alias(libs.plugins.kotlinCompose)
+    id("org.jetbrains.dokka")
+}
+
+tasks.dokkaHtml.configure {
+    outputDirectory.set(file("../documentation/html"))
 }
 
 android {
