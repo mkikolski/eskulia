@@ -42,6 +42,15 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.DarkGrayInactive
 import pl.mkikolski.mojacodziennatabletka.ui.theme.LightGrayInactive
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
+/**
+ * A composable function that displays a selectable item with optional chip and secondary text.
+ *
+ * @param text The main text of the item.
+ * @param isSelected A boolean indicating if the item is selected.
+ * @param onClick The callback to be invoked when the item is clicked.
+ * @param chip The optional chip text to be displayed.
+ * @param secondaryText The optional secondary text to be displayed.
+ */
 @Composable
 fun SingularSelectItem(
     text: String,
@@ -50,6 +59,12 @@ fun SingularSelectItem(
     chip: String? = null,
     secondaryText: String? = null
 ) {
+    /**
+     * Changes the modifier of the card based on the selection state.
+     *
+     * @param isSelected A boolean indicating if the item is selected.
+     * @return The modified card modifier.
+     */
     @Composable
     fun changeCardModifier(isSelected: Boolean): Modifier {
         val cardModifier = Modifier
@@ -143,6 +158,15 @@ fun SingularSelectItem(
     }
 }
 
+/**
+ * A composable function that displays a list of selectable items.
+ *
+ * @param labels The list of main texts for the items.
+ * @param chips The list of optional chip texts for the items.
+ * @param secondaryTexts The list of optional secondary texts for the items.
+ * @param selected The currently selected item.
+ * @param onSelected The callback to be invoked when an item is selected.
+ */
 @Composable
 fun SingularSelect(
     labels: List<String>,

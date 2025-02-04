@@ -51,6 +51,14 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 import java.util.Locale
 
+/**
+ * A composable function that displays a switch with two labels.
+ *
+ * @param label1 The label for the first option.
+ * @param label2 The label for the second option.
+ * @param selected A boolean indicating if the second option is selected.
+ * @param onSwitch The callback to be invoked when the switch is toggled.
+ */
 @Composable
 fun BipolarSwitch(
     label1: String,
@@ -102,7 +110,14 @@ fun BipolarSwitch(
 }
 
 
-
+/**
+ * A composable function that displays a text navigation button.
+ *
+ * @param text The text to be displayed on the button.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param disabled A boolean indicating if the button is disabled.
+ * @param modifier The modifier to be applied to the button.
+ */
 @Composable
 fun TextNavButton(
     text: String,
@@ -135,6 +150,18 @@ fun TextNavButton(
     }
 }
 
+/**
+ * A composable function that displays a full-width styled button.
+ *
+ * @param text The text to be displayed on the button.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param leadingIcon The resource ID of the leading icon, or null if there is no leading icon.
+ * @param trailingIcon The resource ID of the trailing icon, or null if there is no trailing icon.
+ * @param modifier The modifier to be applied to the button.
+ * @param disabled A boolean indicating if the button is disabled.
+ * @param enabledColor The color of the button when enabled.
+ * @param disabledColor The color of the button when disabled.
+ */
 @Composable
 fun StyledButtonFullWidth(
     text: String,
@@ -188,6 +215,16 @@ fun StyledButtonFullWidth(
     }
 }
 
+/**
+ * A composable function that displays a full-width styled outlined button.
+ *
+ * @param text The text to be displayed on the button.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param leadingIcon The resource ID of the leading icon, or null if there is no leading icon.
+ * @param trailingIcon The resource ID of the trailing icon, or null if there is no trailing icon.
+ * @param modifier The modifier to be applied to the button.
+ * @param disabled A boolean indicating if the button is disabled.
+ */
 @Composable
 fun StyledOutlineButtonFullWidth(
     text: String,
@@ -240,6 +277,19 @@ fun StyledOutlineButtonFullWidth(
     }
 }
 
+/**
+ * A composable function that displays a styled icon button with a background.
+ *
+ * @param icon The resource ID of the icon to be displayed.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param disabled A boolean indicating if the button is disabled.
+ * @param size The size of the button.
+ * @param colorEnabled The color of the button when enabled.
+ * @param colorDisabled The color of the button when disabled.
+ * @param contentColor The color of the icon when the button is enabled.
+ * @param disabledContentColor The color of the icon when the button is disabled.
+ * @param modifier The modifier to be applied to the button.
+ */
 @Composable
 fun StyledIconButtonBackground(
     icon: Int,
@@ -276,6 +326,19 @@ fun StyledIconButtonBackground(
     }
 }
 
+/**
+ * A composable function that displays a styled icon button with a background.
+ *
+ * @param icon The ImageVector of the icon to be displayed.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param disabled A boolean indicating if the button is disabled.
+ * @param size The size of the button.
+ * @param colorEnabled The color of the button when enabled.
+ * @param colorDisabled The color of the button when disabled.
+ * @param contentColor The color of the icon when the button is enabled.
+ * @param disabledContentColor The color of the icon when the button is disabled.
+ * @param modifier The modifier to be applied to the button.
+ */
 @Composable
 fun StyledIconButtonBackground(
     icon: ImageVector,
@@ -312,6 +375,17 @@ fun StyledIconButtonBackground(
     }
 }
 
+/**
+ * A composable function that displays a styled outlined icon button with a background.
+ *
+ * @param icon The resource ID of the icon to be displayed.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param disabled A boolean indicating if the button is disabled.
+ * @param size The size of the button.
+ * @param colorEnabled The color of the button when enabled.
+ * @param colorDisabled The color of the button when disabled.
+ * @param modifier The modifier to be applied to the button.
+ */
 @Composable
 fun StyledOutlinedIconButtonBackground(
     icon: Int,
@@ -347,6 +421,17 @@ fun StyledOutlinedIconButtonBackground(
     }
 }
 
+/**
+ * A composable function that displays a styled outlined icon button with a background.
+ *
+ * @param icon The ImageVector of the icon to be displayed.
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param disabled A boolean indicating if the button is disabled.
+ * @param size The size of the button.
+ * @param colorEnabled The color of the button when enabled.
+ * @param colorDisabled The color of the button when disabled.
+ * @param modifier The modifier to be applied to the button.
+ */
 @Composable
 fun StyledOutlinedIconButtonBackground(
     icon: ImageVector,

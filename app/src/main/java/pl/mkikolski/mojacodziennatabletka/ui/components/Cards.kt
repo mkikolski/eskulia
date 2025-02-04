@@ -53,6 +53,13 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 import pl.mkikolski.mojacodziennatabletka.ui.theme.RandomChipColor
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
+/**
+ * A composable function that creates a header card with a customizable top cut corner radius.
+ *
+ * @param cornerRadius The radius of the bottom corners of the card. Default is 16.dp.
+ * @param modifier The modifier to be applied to the card. Default is Modifier.
+ * @param content The content to be displayed inside the card.
+ */
 @Composable
 fun TopCutCard(
     cornerRadius: Dp = 16.dp,
@@ -251,6 +258,16 @@ fun MedicationCard(
     }
 }
 
+/**
+ * A composable function that creates a card for displaying a blog post.
+ *
+ * @param title The title of the blog post.
+ * @param author The author of the blog post.
+ * @param date The date of the blog post.
+ * @param content The content of the blog post.
+ * @param imageUrl The URL of the image associated with the blog post.
+ * @param tags A list of tags associated with the blog post.
+ */
 @Composable
 fun BlogPostCard(
     title: String,

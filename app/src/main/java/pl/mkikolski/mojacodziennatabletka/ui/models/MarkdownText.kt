@@ -12,7 +12,16 @@ import androidx.compose.ui.unit.sp
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 import pl.mkikolski.mojacodziennatabletka.R
 
+/**
+ * Object that provides functionality to convert Markdown text to an AnnotatedString.
+ */
 object MarkdownText {
+    /**
+     * Converts a Markdown string to an AnnotatedString with appropriate styles.
+     *
+     * @param markdown The Markdown string to be converted.
+     * @return The resulting AnnotatedString with styles applied.
+     */
     fun markdownToAnnotatedString(markdown: String): AnnotatedString {
         val builder = AnnotatedString.Builder()
 

@@ -45,6 +45,25 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.DarkGrayInactive
 import pl.mkikolski.mojacodziennatabletka.ui.theme.LightRedError
 import pl.mkikolski.mojacodziennatabletka.ui.theme.RedError
 
+/**
+ * A composable function that displays a styled text field with various customization options.
+ *
+ * @param label The label to be displayed inside the text field.
+ * @param value The current value of the text field.
+ * @param onValueChange The callback to be invoked when the value of the text field changes.
+ * @param validator A function that validates the input value. Returns false if the input is invalid.
+ * @param errorMessage The error message to be displayed below the text field if the input is invalid.
+ * @param icon The resource ID of the leading icon to be displayed inside the text field.
+ * @param modifier The modifier to be applied to the text field.
+ * @param placeholder The placeholder text to be displayed inside the text field.
+ * @param isPassword A boolean indicating if the text field is for password input and should be masked.
+ * @param paddingTop The top padding to be applied to the text field.
+ * @param paddingBottom The bottom padding to be applied to the text field.
+ * @param paddingLeft The left padding to be applied to the text field.
+ * @param paddingRight The right padding to be applied to the text field.
+ * @param isNumeric A boolean indicating if the text field is for numeric input.
+ * @param readOnly A boolean indicating if the text field is read-only.
+ */
 @Composable
 fun StyledTextField(
     label: String,
@@ -142,6 +161,24 @@ fun StyledTextField(
     )
 }
 
+/**
+ * A composable function that displays a styled text field with various customization options.
+ *
+ * @param label The label to be displayed inside the text field.
+ * @param value The current value of the text field.
+ * @param onValueChange The callback to be invoked when the value of the text field changes.
+ * @param validator A function that validates the input value. Returns false if the input is invalid.
+ * @param errorMessage The error message to be displayed below the text field if the input is invalid.
+ * @param icon The ImageVector of the leading icon to be displayed inside the text field.
+ * @param modifier The modifier to be applied to the text field.
+ * @param placeholder The placeholder text to be displayed inside the text field.
+ * @param isPassword A boolean indicating if the text field is for password input and should be masked.
+ * @param paddingTop The top padding to be applied to the text field.
+ * @param paddingBottom The bottom padding to be applied to the text field.
+ * @param paddingLeft The left padding to be applied to the text field.
+ * @param paddingRight The right padding to be applied to the text field.
+ * @param isNumeric A boolean indicating if the text field is for numeric input.
+ */
 @Composable
 fun StyledTextField(
     label: String,

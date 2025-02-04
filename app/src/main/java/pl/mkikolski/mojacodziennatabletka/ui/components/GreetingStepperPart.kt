@@ -27,6 +27,15 @@ import androidx.compose.ui.unit.sp
 import pl.mkikolski.mojacodziennatabletka.R
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
+/**
+ * A composable function that displays a single greeting stepper part.
+ *
+ * @param title The title of the step.
+ * @param description The description of the step.
+ * @param image The resource ID of the image to display.
+ * @param onContinue The callback to be invoked when the continue button is clicked.
+ * @param isLastStep A boolean indicating if this is the last step.
+ */
 @Composable
 fun GreetingStepperPart(
     title: String,

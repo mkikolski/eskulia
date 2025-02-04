@@ -35,6 +35,14 @@ import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 import pl.mkikolski.mojacodziennatabletka.ui.theme.RedError
 import pl.mkikolski.mojacodziennatabletka.ui.theme.jakartaFontFamily
 
+/**
+ * A composable function that displays a styled divider with text in the center.
+ *
+ * @param text The text to be displayed in the center of the divider.
+ * @param fontSize The font size of the text.
+ * @param color The color of the divider and text.
+ * @param modifier The modifier to be applied to the divider.
+ */
 @Composable
 fun StyledDivider(
     text: String,
@@ -66,6 +74,13 @@ fun StyledDivider(
     }
 }
 
+/**
+ * A composable function that displays a warning field with a title, content, and optional icon.
+ *
+ * @param warningTitle The title of the warning.
+ * @param warningContent The content of the warning.
+ * @param showIcon A boolean indicating if the warning icon should be displayed.
+ */
 @Composable
 fun WarningField(
     warningTitle: String,
