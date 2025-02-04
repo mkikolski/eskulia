@@ -21,9 +21,20 @@ import pl.mkikolski.mojacodziennatabletka.navigation.HomeNavigation
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 import pl.mkikolski.mojacodziennatabletka.ui.views.MainView
 
+/**
+ * HomeActivity is the main activity for the home screen of the application.
+ * It handles user authentication and sets the content view with the theme and navigation.
+ */
 class HomeActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
 
+    /**
+     * Called when the activity is starting.
+     * Initializes Firebase authentication and sets the content view with the theme and navigation.
+     * If the user is not authenticated, it redirects to the MainActivity.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()

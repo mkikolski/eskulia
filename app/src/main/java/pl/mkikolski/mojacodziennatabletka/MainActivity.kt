@@ -18,11 +18,20 @@ import pl.mkikolski.mojacodziennatabletka.navigation.PreLoginNavigation
 import pl.mkikolski.mojacodziennatabletka.network.ScanApi
 import pl.mkikolski.mojacodziennatabletka.ui.theme.PillAssistantTheme
 
+/**
+ * Main activity for the application.
+ * Initializes Firebase authentication and sets the content view.
+ */
 class MainActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var medicineApi: ScanApi
 
-
+    /**
+     * Called when the activity is starting.
+     * Initializes Firebase authentication and sets the content view with the theme and navigation.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = Firebase.auth
 

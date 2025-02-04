@@ -12,6 +12,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel class for managing user-related data and operations.
+ *
+ * @property repository The Firestore repository for accessing user data.
+ */
 class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
     private val _userState = MutableStateFlow<User?>(null)
     val userState = _userState.asStateFlow()
@@ -28,6 +33,11 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
     private val _chatMessages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val chatMessages = _chatMessages.asStateFlow()
 
+    /**
+     * Retrieves user data and associated information from the repository.
+     *
+     * @param uid The unique identifier of the user.
+     */
     fun getUser(uid: String) {
         viewModelScope.launch {
             _userState.value = repository.getUser(uid)
@@ -37,6 +47,12 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
         }
     }
 
+    /**
+     * Adds a new medication for the user and navigates to the home screen.
+     *
+     * @param medication The medication to be added.
+     * @param navController The navigation controller for navigating between screens.
+     */
     fun addMedication(medication: Medication, navController: NavHostController) {
         viewModelScope.launch {
             val medId = repository.addMedication(medication)
@@ -47,6 +63,11 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
         }
     }
 
+    /**
+     * Creates a new chat for the user and navigates to the chat detail screen.
+     *
+     * @param navController The navigation controller for navigating between screens.
+     */
     fun addChat(navController: NavHostController) {
         viewModelScope.launch {
             val chatId = repository.createChat()
@@ -57,12 +78,22 @@ class UserViewModel(private val repository: FirestoreRepository) : ViewModel() {
         }
     }
 
+    /**
+     * Retrieves chat messages based on the provided message IDs.
+     *
+     * @param msgIds The list of message IDs to retrieve.
+     */
     fun getMessages(msgIds: List<String>) {
         viewModelScope.launch {
             _chatMessages.value = repository.getChatMessages(msgIds)
         }
     }
 
+    /**
+     * Updates the user data in the repository.
+     *
+     * @param user The user data to be updated.
+     */
     fun updateUser(user: User) {
         viewModelScope.launch {
             repository.updateUser(user)
