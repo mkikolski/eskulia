@@ -8,7 +8,7 @@ plugins {
 }
 
 tasks.dokkaHtml.configure {
-    outputDirectory.set(file("../documentation/html"))
+    outputDirectory.set(file("../docs"))
 }
 
 android {
